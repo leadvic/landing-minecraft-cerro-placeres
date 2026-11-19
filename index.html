@@ -364,6 +364,8 @@
     }
 
     .note strong { color: var(--text); font-weight: 600; }
+    .note a { color: var(--orange); text-decoration: none; }
+    .note a:hover { text-decoration: underline; }
 
     .features {
       display: grid;
@@ -472,6 +474,14 @@
     }
 
     .btn.green:hover { filter: brightness(1.05); }
+
+    .btn.ghost {
+      border-color: var(--line-strong);
+      background: rgba(167, 139, 250, 0.08);
+      color: var(--purple);
+    }
+
+    .btn.ghost:hover { border-color: var(--purple); }
 
     .btn + .btn { margin-top: 8px; }
     .btn + .note { margin-top: 12px; }
@@ -673,12 +683,13 @@
         </div>
         <div class="card">
           <div class="address">
-            <div><small>IP</small><code>200.83.209.209</code></div>
-            <div><small>Puerto</small><code>20007</code></div>
+            <div><small>Servidor</small><code>ovalheron.wdn.gg</code></div>
+            <div><small>Puerto</small><code>443</code></div>
           </div>
-          <button class="btn primary" type="button" data-copy="200.83.209.209:20007" aria-label="Copiar IP y puerto de Bedrock">Copiar dirección</button>
-          <a class="btn green" href="minecraft://?addExternalServer=Cerro%20Placeres|200.83.209.209:20007">Abrir en Minecraft</a>
-          <p class="note">El botón <strong>Abrir en Minecraft</strong> añade el servidor y abre el juego. Si tu cliente no conecta, copia la IP y añádela a mano.</p>
+          <button class="btn primary" type="button" data-copy="ovalheron.wdn.gg:443" aria-label="Copiar dirección de Bedrock">Copiar dirección</button>
+          <a class="btn green" href="minecraft://connect?serverUrl=ovalheron.wdn.gg&amp;serverPort=443">Jugar ahora</a>
+          <a class="btn ghost" href="minecraft://?addExternalServer=Cerro%20Placeres%7Covalheron.wdn.gg%3A443">Añadir a la lista</a>
+          <p class="note">El botón <strong>Jugar ahora</strong> abre Minecraft y conecta por NetherNet. Si no funciona, añade el servidor a la lista o abre la <a href="https://ovalheron.wdn.gg" target="_blank" rel="noopener">página de conexión</a>. La página indica la versión 26.51; tu cliente debe ser compatible.</p>
         </div>
       </section>
     </main>
