@@ -5,3 +5,7 @@ services:
     restart: unless-stopped
     ports:
       - "8080:80"
+    # Umami: define UMAMI_SRC y/o UMAMI_WEBSITE_ID en .env para cambiarlos.
+    environment:
+      UMAMI_SRC:
+      UMAMI_WEBSITE_ID:
