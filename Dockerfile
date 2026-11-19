@@ -1,6 +1,6 @@
 FROM nginx:alpine-slim
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf.tmpl /etc/nginx/default.conf.tmpl
 COPY index.html /usr/share/nginx/html/index.html.tmpl
 COPY --chmod=755 40-umami.sh /docker-entrypoint.d/40-umami.sh
 
