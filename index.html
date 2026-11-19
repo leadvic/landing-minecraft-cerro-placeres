@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0618">
+  <meta name="description" content="Cerro Placeres: servidor de Minecraft Java y Bedrock. Reglas, características y conexión.">
+  <title>Cerro Placeres · Minecraft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0614;
+      --bg-2: #140a26;
+      --text: #f7f4ff;
+      --muted: #b9a8e6;
+      --purple: #a78bfa;
+      --purple-2: #7c3aed;
+      --green: #34d399;
+      --green-2: #10b981;
+      --orange: #fb923c;
+      --orange-2: #f97316;
+      --card: rgba(255, 255, 255, 0.055);
+      --card-2: rgba(255, 255, 255, 0.035);
+      --line: rgba(196, 181, 253, 0.16);
+      --line-strong: rgba(167, 139, 250, 0.36);
+      --radius: 22px;
+      --shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.9);
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: calc(22px + env(safe-area-inset-top)) 16px calc(30px + env(safe-area-inset-bottom));
+      font-family: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      overflow-x: hidden;
+      background:
+        radial-gradient(120% 75% at 50% -10%, rgba(124, 58, 237, 0.52) 0%, rgba(124, 58, 237, 0) 58%),
+        radial-gradient(80% 55% at 105% 95%, rgba(52, 211, 153, 0.16) 0%, rgba(52, 211, 153, 0) 60%),
+        radial-gradient(70% 50% at -10% 75%, rgba(251, 146, 60, 0.10) 0%, rgba(251, 146, 60, 0) 55%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 60%, #0b0614 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 4px 4px;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 8px 4px 22px;
+      text-align: center;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .logo {
+      display: grid;
+      grid-template-columns: repeat(2, 13px);
+      gap: 4px;
+      transform: rotate(-8deg);
+      filter: drop-shadow(0 8px 16px rgba(124, 58, 237, 0.35));
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .logo span {
+      display: block;
+      width: 13px;
+      height: 13px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-2));
+    }
+
+    .logo span:nth-child(2) { background: linear-gradient(135deg, var(--green), var(--green-2)); }
+    .logo span:nth-child(3) { background: linear-gradient(135deg, var(--orange), var(--orange-2)); }
+    .logo span:nth-child(4) { background: linear-gradient(135deg, #c4b5fd, var(--purple)); }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2.4rem, 10vw, 3.2rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      background: linear-gradient(100deg, #ffffff 0%, #d8ccff 35%, var(--purple) 55%, var(--green) 78%, var(--orange) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lead {
+      max-width: 330px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .lead strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 10px currentColor;
+    }
+
+    .pill.green {
+      color: var(--green);
+      border-color: rgba(52, 211, 153, 0.25);
+      background: rgba(52, 211, 153, 0.07);
+    }
+
+    .pill.orange {
+      color: var(--orange);
+      border-color: rgba(251, 146, 60, 0.22);
+      background: rgba(251, 146, 60, 0.06);
+    }
+
+    .quick {
+      display: grid;
+      gap: 10px;
+      margin: 8px 0 30px;
+    }
+
+    .quick-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.035));
+      color: var(--text);
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .quick-card:hover {
+      border-color: var(--line-strong);
+      background: linear-gradient(135deg, rgba(167, 139, 250, 0.13), rgba(255, 255, 255, 0.04));
+    }
+
+    .quick-card:active { transform: scale(0.985); }
+
+    .quick-icon {
+      display: grid;
+      flex: 0 0 38px;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid rgba(167, 139, 250, 0.18);
+      border-radius: 12px;
+      background: rgba(167, 139, 250, 0.12);
+      color: var(--purple);
+    }
+
+    .quick-icon.green {
+      border-color: rgba(52, 211, 153, 0.18);
+      background: rgba(52, 211, 153, 0.10);
+      color: var(--green);
+    }
+
+    .quick-icon.orange {
+      border-color: rgba(251, 146, 60, 0.18);
+      background: rgba(251, 146, 60, 0.10);
+      color: var(--orange);
+    }
+
+    .quick-icon svg { width: 20px; height: 20px; }
+
+    .quick-text {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .quick-text strong { font-size: 15px; font-weight: 600; }
+
+    .quick-text small {
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 12px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .chev {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 22px;
+      line-height: 1;
+      transition: transform 0.18s ease, color 0.18s ease;
+    }
+
+    .quick-card:hover .chev { transform: translateX(3px); color: var(--purple); }
+
+    .section {
+      margin: 0 0 34px;
+      scroll-margin-top: 24px;
+    }
+
+    .section-head { margin: 0 0 12px 2px; }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .kicker.green { color: var(--green); }
+    .kicker.orange { color: var(--orange); }
+    .kicker.purple { color: var(--purple); }
+
+    h2 {
+      margin: 4px 0 5px;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--card), var(--card-2));
+      box-shadow: var(--shadow);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
+    .rules {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rules li {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .num {
+      display: grid;
+      width: 26px;
+      height: 26px;
+      place-items: center;
+      border: 1px solid rgba(167, 139, 250, 0.20);
+      border-radius: 999px;
+      background: rgba(167, 139, 250, 0.12);
+      color: var(--purple);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .rules strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .rules p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 16px 0 13px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+    }
+
+    .note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .note strong { color: var(--text); font-weight: 600; }
+
+    .features {
+      display: grid;
+      gap: 13px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .features li {
+      display: grid;
+      grid-template-columns: 8px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      margin-top: 5px;
+      border-radius: 50%;
+      background: var(--purple);
+      box-shadow: 0 0 10px rgba(167, 139, 250, 0.6);
+    }
+
+    .dot.green { background: var(--green); box-shadow: 0 0 10px rgba(52, 211, 153, 0.55); }
+    .dot.orange { background: var(--orange); box-shadow: 0 0 10px rgba(251, 146, 60, 0.55); }
+
+    .features strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .features small {
+      display: block;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    .address {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .address > div {
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.22);
+    }
+
+    .address small {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .address code {
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      word-break: break-all;
+    }
+
+    .btn {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 14px;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.18s ease, filter 0.18s ease, border-color 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:active { transform: scale(0.985); }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--purple-2), var(--purple));
+      color: #ffffff;
+      box-shadow: 0 12px 28px -16px rgba(124, 58, 237, 0.9);
+    }
+
+    .btn.primary:hover { filter: brightness(1.08); }
+
+    .btn.green {
+      background: linear-gradient(135deg, var(--green-2), var(--green));
+      color: #042f1f;
+      box-shadow: 0 12px 28px -16px rgba(52, 211, 153, 0.8);
+    }
+
+    .btn.green:hover { filter: brightness(1.05); }
+
+    .btn + .btn { margin-top: 8px; }
+    .btn + .note { margin-top: 12px; }
+
+    .footer {
+      padding: 8px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .footer p { margin: 0; }
+    .footer .tiny { margin-top: 4px; font-size: 10px; opacity: 0.6; }
+
+    .toast {
+      position: fixed;
+      bottom: calc(20px + env(safe-area-inset-bottom));
+      left: 50%;
+      z-index: 10;
+      padding: 11px 16px;
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      border-radius: 999px;
+      background: #1c1030;
+      box-shadow: 0 16px 40px -18px #000;
+      color: var(--text);
+      font-size: 12.5px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: rotate(-8deg) translateY(0); }
+      50% { transform: rotate(-4deg) translateY(-3px); }
+    }
+
+    @media (max-width: 360px) {
+      .address { grid-template-columns: 1fr; }
+      .quick-text small { white-space: normal; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .logo { animation: none; }
+      .btn, .quick-card, .chev, .toast { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="brand-row">
+        <div class="logo" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <p class="eyebrow">Servidor de Minecraft</p>
+      </div>
+      <h1>Cerro Placeres</h1>
+      <p class="lead">Explora, construye y sobrevive en una comunidad abierta para <strong>Java</strong> y <strong>Bedrock</strong>.</p>
+      <div class="pills">
+        <span class="pill green">Comunidad abierta</span>
+        <span class="pill orange">Java + Bedrock</span>
+      </div>
+    </header>
+
+    <nav class="quick" aria-label="Ir a una sección">
+      <a class="quick-card" href="#reglas">
+        <span class="quick-icon green" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 4h10a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/>
+            <path d="M9 8h6M9 12h6M9 16h4"/>
+          </svg>
+        </span>
+        <span class="quick-text">
+          <strong>Reglas</strong>
+          <small>Convivencia y buen rollo</small>
+        </span>
+        <span class="chev" aria-hidden="true">›</span>
+      </a>
+
+      <a class="quick-card" href="#caracteristicas">
+        <span class="quick-icon orange" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/>
+          </svg>
+        </span>
+        <span class="quick-text">
+          <strong>Características</strong>
+          <small>Lo que no es vanilla</small>
+        </span>
+        <span class="chev" aria-hidden="true">›</span>
+      </a>
+
+      <a class="quick-card" href="#java">
+        <span class="quick-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="12" rx="2"/>
+            <path d="M8 20h8M12 16v4"/>
+          </svg>
+        </span>
+        <span class="quick-text">
+          <strong>Conectar por Java</strong>
+          <small>IP, puerto y copiar</small>
+        </span>
+        <span class="chev" aria-hidden="true">›</span>
+      </a>
+
+      <a class="quick-card" href="#bedrock">
+        <span class="quick-icon orange" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="7" y="2" width="10" height="20" rx="2"/>
+            <path d="M11 18h2"/>
+          </svg>
+        </span>
+        <span class="quick-text">
+          <strong>Conectar por Bedrock</strong>
+          <small>Abrir en Minecraft</small>
+        </span>
+        <span class="chev" aria-hidden="true">›</span>
+      </a>
+    </nav>
+
+    <main>
+      <section id="reglas" class="section">
+        <div class="section-head">
+          <span class="kicker green">01 · Comunidad</span>
+          <h2>Reglas</h2>
+          <p>Lo justo para que todos disfruten. Al entrar, las aceptas.</p>
+        </div>
+        <div class="card">
+          <ol class="rules">
+            <li><span class="num">01</span><div><strong>Respeto ante todo.</strong><p>Sin insultos, acoso, discriminación ni datos personales.</p></div></li>
+            <li><span class="num">02</span><div><strong>Nada de griefing ni robos.</strong><p>Respeta construcciones, cofres y granjas ajenas.</p></div></li>
+            <li><span class="num">03</span><div><strong>Sin trampas.</strong><p>Hacks, x-ray, autoclick, macros, exploits o bugs.</p></div></li>
+            <li><span class="num">04</span><div><strong>PvP consentido.</strong><p>Nada de spawn kill, campear ni matar a quien no quiere pelear.</p></div></li>
+            <li><span class="num">05</span><div><strong>Tumbas ajenas, intactas.</strong><p>Cada muerte deja una tumba; solo su dueño la abre.</p></div></li>
+            <li><span class="num">06</span><div><strong>Chat limpio.</strong><p>Sin spam, publicidad, enlaces raros ni mayúsculas gritonas.</p></div></li>
+            <li><span class="num">07</span><div><strong>Sin multicuentas.</strong><p>No evadas sanciones ni dupliques vidas.</p></div></li>
+            <li><span class="num">08</span><div><strong>Construye con cabeza.</strong><p>Lejos del spawn, sin bloquear caminos ni zonas comunes.</p></div></li>
+            <li><span class="num">09</span><div><strong>Cuida el rendimiento.</strong><p>Granjas y redstone razonables; el staff puede pedir ajustes.</p></div></li>
+            <li><span class="num">10</span><div><strong>Reporta, no abuses.</strong><p>Bugs, trampas o mal rollo al staff; no los aproveches.</p></div></li>
+          </ol>
+          <div class="divider"></div>
+          <p class="note"><strong>Consecuencias:</strong> aviso, mute, kick o ban según la gravedad. El staff decide. Al entrar aceptas estas reglas.</p>
+        </div>
+      </section>
+
+      <section id="caracteristicas" class="section">
+        <div class="section-head">
+          <span class="kicker orange">02 · Novedades</span>
+          <h2>Características</h2>
+          <p>Lo que encontrarás fuera de lo vanilla, en una lista rápida.</p>
+        </div>
+        <div class="card">
+          <ul class="features">
+            <li><span class="dot"></span><div><strong>Mundos a medida</strong><small>Overworld con TerraformGenerator; Nether con Tartarus; End con ReimagEND.</small></div></li>
+            <li><span class="dot green"></span><div><strong>Estructuras nuevas</strong><small>BetterStructures y Dungeons and Taverns.</small></div></li>
+            <li><span class="dot orange"></span><div><strong>Mobs con nivel e IA</strong><small>LevelledMobs y SentientMobs.</small></div></li>
+            <li><span class="dot"></span><div><strong>Vidas y reanimación</strong><small>LimitedLives y UltraRevive.</small></div></li>
+            <li><span class="dot green"></span><div><strong>Tumbas y loot por jugador</strong><small>AxGraves y Lootin.</small></div></li>
+            <li><span class="dot orange"></span><div><strong>Cocina, cerveza y cultivos</strong><small>CookMe, BreweryX y CropReplant.</small></div></li>
+            <li><span class="dot"></span><div><strong>Senderos naturales</strong><small>Trodden: la hierba se vuelve camino al caminar.</small></div></li>
+            <li><span class="dot green"></span><div><strong>Desastres naturales</strong><small>Deadly Disasters.</small></div></li>
+            <li><span class="dot orange"></span><div><strong>Java y Bedrock</strong><small>Geyser, Floodgate y ViaVersion.</small></div></li>
+            <li><span class="dot"></span><div><strong>Dormir</strong><small>La noche pasa con el 51% de jugadores.</small></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="java" class="section">
+        <div class="section-head">
+          <span class="kicker purple">03 · Java</span>
+          <h2>Conectar por Java</h2>
+          <p>Para Minecraft Java Edition con cuenta premium.</p>
+        </div>
+        <div class="card">
+          <div class="address">
+            <div><small>IP</small><code>vecthor.cl</code></div>
+            <div><small>Puerto</small><code>20007</code></div>
+          </div>
+          <button class="btn primary" type="button" data-copy="vecthor.cl:20007" aria-label="Copiar IP y puerto de Java">Copiar dirección</button>
+          <p class="note">Minecraft → Multijugador → Añadir servidor. En Java no hay un enlace universal para entrar directo; por eso el botón copia la dirección.</p>
+        </div>
+      </section>
+
+      <section id="bedrock" class="section">
+        <div class="section-head">
+          <span class="kicker orange">04 · Bedrock</span>
+          <h2>Conectar por Bedrock</h2>
+          <p>Desde móvil, consola o Windows. No necesitas cuenta Java.</p>
+        </div>
+        <div class="card">
+          <div class="address">
+            <div><small>IP</small><code>200.83.209.209</code></div>
+            <div><small>Puerto</small><code>20007</code></div>
+          </div>
+          <button class="btn primary" type="button" data-copy="200.83.209.209:20007" aria-label="Copiar IP y puerto de Bedrock">Copiar dirección</button>
+          <a class="btn green" href="minecraft://?addExternalServer=Cerro%20Placeres|200.83.209.209:20007">Abrir en Minecraft</a>
+          <p class="note">El botón <strong>Abrir en Minecraft</strong> añade el servidor y abre el juego. Si tu cliente no conecta, copia la IP y añádela a mano.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Cerro Placeres · Valparaíso, Chile</p>
+      <p class="tiny">Servidor de Minecraft Java &amp; Bedrock<br>No afiliado a Mojang ni Microsoft.</p>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const toast = document.getElementById('toast');
+    let toastTimer;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = text;
+        area.setAttribute('readonly', '');
+        area.style.position = 'fixed';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+      }
+      showToast('Dirección copiada');
+    }
+
+    document.querySelectorAll('[data-copy]').forEach((button) => {
+      button.addEventListener('click', () => copyText(button.dataset.copy));
+    });
+  </script>
+</body>
+</html>
