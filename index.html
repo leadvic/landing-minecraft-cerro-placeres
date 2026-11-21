@@ -609,6 +609,16 @@
       border-top: 1px solid var(--line);
     }
 
+    .connect-block + .connect-block {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .connect-block h3 { margin: 0 0 3px; font-size: 17px; letter-spacing: -0.01em; }
+    .connect-block > p { margin: 0 0 10px; color: var(--muted); font-size: 12.5px; line-height: 1.45; }
+    #java, #bedrock { scroll-margin-top: 24px; }
+
     .feature-group h3 {
       margin: 0 0 11px;
       color: var(--muted);
@@ -637,7 +647,6 @@
     .why-actions .btn { padding: 11px 8px; font-size: 12px; }
 
     @media (max-width: 360px) {
-      .hero-actions,
       .why-actions { grid-template-columns: 1fr; }
     }
 
@@ -657,9 +666,11 @@
       color: var(--purple);
     }
 
-    .hero-actions { grid-template-columns: 1fr; }
+    .hero-actions { grid-template-columns: 1fr 1fr; }
 
+    .why-actions { align-items: stretch; }
     .why-actions .btn { min-height: 46px; height: 100%; }
+    .why-actions .btn + .btn { margin-top: 0; }
 
     .recipe-image {
       display: block;
@@ -693,7 +704,7 @@
               <path d="M8 20h8M12 16v4"/>
             </svg>
           </span>
-          <span class="hero-action-text"><strong>Jugar en Java</strong><small>PC · cuenta premium</small></span>
+          <span class="hero-action-text"><strong>Java</strong><small>Jugar · PC premium</small></span>
           <span class="hero-action-arrow" aria-hidden="true">→</span>
         </a>
         <a class="hero-action bedrock" href="#bedrock" aria-label="Ir a la conexión de Bedrock">
@@ -703,7 +714,7 @@
               <path d="M11 18h2"/>
             </svg>
           </span>
-          <span class="hero-action-text"><strong>Jugar en Bedrock</strong><small>Móvil · consola</small></span>
+          <span class="hero-action-text"><strong>Bedrock</strong><small>Jugar · móvil/consola</small></span>
           <span class="hero-action-arrow" aria-hidden="true">→</span>
         </a>
       </div>
@@ -771,43 +782,45 @@
     </nav>
 
     <main>
-      <section id="java" class="section">
+      <section id="conexion" class="section">
         <div class="section-head">
           <span class="kicker purple">01 · Conexión</span>
-          <h2>Conectar por Java</h2>
-          <p>Para Minecraft Java Edition con cuenta premium.</p>
+          <h2>Conectar al servidor</h2>
+          <p>Elige tu versión. Las dos llevan al mismo mundo.</p>
         </div>
-        <div class="card">
-          <div class="address">
-            <div><small>IP</small><code>vecthor.cl</code></div>
-            <div><small>Puerto</small><code>20007</code></div>
-          </div>
-          <button class="btn primary" type="button" data-copy="vecthor.cl:20007" aria-label="Copiar IP y puerto de Java">Copiar dirección</button>
-          <p class="note">Minecraft → Multijugador → Añadir servidor. En Java no hay un enlace universal para entrar directo; por eso el botón copia la dirección.</p>
-        </div>
-      </section>
 
-      <section id="bedrock" class="section">
-        <div class="section-head">
-          <span class="kicker orange">02 · Conexión</span>
-          <h2>Conectar por Bedrock</h2>
-          <p>Desde móvil, consola o Windows. No necesitas cuenta Java.</p>
-        </div>
-        <div class="card">
-          <div class="address">
-            <div><small>Servidor</small><code>mc.vecthor.cl</code></div>
-            <div><small>Puerto</small><code>20008</code></div>
+        <div id="java" class="connect-block">
+          <h3>Conectar a Java</h3>
+          <p>Para Minecraft Java Edition con cuenta premium.</p>
+          <div class="card">
+            <div class="address">
+              <div><small>IP</small><code>vecthor.cl</code></div>
+              <div><small>Puerto</small><code>20007</code></div>
+            </div>
+            <button class="btn primary" type="button" data-copy="vecthor.cl:20007" aria-label="Copiar IP y puerto de Java">Copiar dirección</button>
+            <p class="note">Minecraft → Multijugador → Añadir servidor. En Java no hay un enlace universal para entrar directo; por eso el botón copia la dirección.</p>
           </div>
-          <button class="btn primary" type="button" data-copy="mc.vecthor.cl:20008" aria-label="Copiar dirección de Bedrock">Copiar dirección</button>
-          <a class="btn green" href="minecraft://connect?serverUrl=mc.vecthor.cl&amp;serverPort=20008">Jugar ahora</a>
-          <a class="btn ghost" href="minecraft://?addExternalServer=Cerro%20Placeres%7Cmc.vecthor.cl%3A20008">Añadir a la lista</a>
-          <p class="note">El botón <strong>Jugar ahora</strong> abre Minecraft y conecta por NetherNet. Si no funciona, añade el servidor a la lista. Requiere Minecraft 26.60 o posterior.</p>
+        </div>
+
+        <div id="bedrock" class="connect-block">
+          <h3>Conectar a Bedrock</h3>
+          <p>Desde móvil, consola o Windows. No necesitas cuenta Java.</p>
+          <div class="card">
+            <div class="address">
+              <div><small>Servidor</small><code>mc.vecthor.cl</code></div>
+              <div><small>Puerto</small><code>20008</code></div>
+            </div>
+            <button class="btn primary" type="button" data-copy="mc.vecthor.cl:20008" aria-label="Copiar dirección de Bedrock">Copiar dirección</button>
+            <a class="btn green" href="minecraft://connect?serverUrl=mc.vecthor.cl&amp;serverPort=20008">Jugar ahora</a>
+            <a class="btn ghost" href="minecraft://?addExternalServer=Cerro%20Placeres%7Cmc.vecthor.cl%3A20008">Añadir a la lista</a>
+            <p class="note">El botón <strong>Jugar ahora</strong> abre Minecraft y conecta por NetherNet. Si no funciona, añade el servidor a la lista. Requiere Minecraft 26.60 o posterior.</p>
+          </div>
         </div>
       </section>
 
       <section id="reglas" class="section">
         <div class="section-head">
-          <span class="kicker green">03 · Comunidad</span>
+          <span class="kicker green">02 · Comunidad</span>
           <h2>Reglas</h2>
           <p>Lo justo para que todos disfruten. Al entrar, las aceptas.</p>
         </div>
@@ -831,7 +844,7 @@
 
       <section id="caracteristicas" class="section">
         <div class="section-head">
-          <span class="kicker orange">04 · Novedades</span>
+          <span class="kicker orange">03 · Novedades</span>
           <h2>Características especiales</h2>
           <p>Todo lo que hace distinto al servidor, en una lectura rápida.</p>
         </div>
@@ -887,7 +900,7 @@
 
       <section id="recetas" class="section">
         <div class="section-head">
-          <span class="kicker purple">05 · Objetos nuevos</span>
+          <span class="kicker purple">04 · Objetos nuevos</span>
           <h2>Recetas especiales</h2>
           <p>Cómo construir los objetos nuevos, sin adivinar.</p>
         </div>
@@ -913,7 +926,7 @@
 
       <section id="porque" class="section">
         <div class="section-head">
-          <span class="kicker green">06 · La razón</span>
+          <span class="kicker green">05 · La razón</span>
           <h2>¿Por qué jugar?</h2>
         </div>
         <div class="card why-card">
