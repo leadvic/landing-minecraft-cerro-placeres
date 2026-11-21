@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0d0618">
-  <meta name="description" content="Cerro Placeres: servidor de Minecraft Java y Bedrock. Reglas, características y conexión.">
+  <meta name="description" content="Cerro Placeres: servidor de Minecraft Java y Bedrock. Reglas, características especiales, recetas y conexión.">
   <title>Cerro Placeres · Minecraft</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -533,6 +533,126 @@
       .logo { animation: none; }
       .btn, .quick-card, .chev, .toast { transition: none; }
     }
+    /* Hero CTA */
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .hero-action {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 68px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.035));
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .hero-action:active { transform: scale(0.985); }
+
+    .hero-action.java {
+      border-color: rgba(167, 139, 250, 0.35);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.24), rgba(255, 255, 255, 0.035));
+    }
+
+    .hero-action.bedrock {
+      border-color: rgba(52, 211, 153, 0.3);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(255, 255, 255, 0.035));
+    }
+
+    .hero-action:hover { border-color: var(--line-strong); }
+
+    .hero-action-icon {
+      display: grid;
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      border-radius: 11px;
+      background: rgba(167, 139, 250, 0.14);
+      color: var(--purple);
+    }
+
+    .hero-action.bedrock .hero-action-icon {
+      border-color: rgba(52, 211, 153, 0.22);
+      background: rgba(52, 211, 153, 0.12);
+      color: var(--green);
+    }
+
+    .hero-action-icon svg { width: 19px; height: 19px; }
+    .hero-action-text { display: flex; flex-direction: column; min-width: 0; gap: 2px; text-align: left; }
+    .hero-action strong { font-size: 13px; font-weight: 700; }
+    .hero-action small { color: var(--muted); font-size: 10px; line-height: 1.2; }
+    .hero-action-arrow { margin-left: auto; color: var(--muted); font-size: 16px; transition: color 0.18s ease; }
+    .hero-action:hover .hero-action-arrow { color: var(--text); }
+
+    .hero-action:focus-visible,
+    .quick-card:focus-visible,
+    .btn:focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 2px;
+    }
+
+    /* Feature groups */
+    .feature-group + .feature-group {
+      margin-top: 18px;
+      padding-top: 17px;
+      border-top: 1px solid var(--line);
+    }
+
+    .feature-group h3 {
+      margin: 0 0 11px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    /* Recipes */
+    .recipe { margin-top: 12px; }
+    .recipe-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .recipe-head h3 { margin: 0; font-size: 16px; letter-spacing: -0.01em; }
+    .recipe-head p { margin: 3px 0 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .recipe-badge { flex: none; padding: 5px 8px; border: 1px solid rgba(52, 211, 153, 0.25); border-radius: 999px; background: rgba(52, 211, 153, 0.08); color: var(--green); font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .recipe-badge.no { border-color: rgba(251, 146, 60, 0.3); background: rgba(251, 146, 60, 0.08); color: var(--orange); }
+
+    .craft-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 260px; margin: 0 auto 12px; }
+    .craft-slot { display: flex; aspect-ratio: 1; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px; border: 1px solid var(--line); border-radius: 10px; background: rgba(0, 0, 0, 0.22); text-align: center; }
+    .craft-slot.key { border-color: rgba(251, 146, 60, 0.4); background: rgba(251, 146, 60, 0.08); }
+    .craft-slot-icon { font-size: 22px; line-height: 1; }
+    .craft-slot small { color: var(--muted); font-size: 8px; line-height: 1.1; }
+    .craft-slot.key small { color: #fdba74; }
+
+    .recipe-ingredients { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; padding: 0; list-style: none; }
+    .recipe-ingredients li { padding: 4px 8px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 255, 255, 0.04); color: var(--muted); font-size: 10px; }
+    .recipe .note { margin-top: 0; }
+
+    /* Why */
+    .why-card { padding: 20px 18px; border-color: rgba(167, 139, 250, 0.28); background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(52, 211, 153, 0.06)); }
+    .why-quote { margin: 0 0 8px; font-size: 22px; font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; background: linear-gradient(100deg, #fff, var(--purple) 60%, var(--green)); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+    .why-text { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .why-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+    .why-actions .btn { padding: 11px 8px; font-size: 12px; }
+
+    @media (max-width: 360px) {
+      .hero-actions,
+      .why-actions { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-action { transition: none; }
+    }
+
   </style>
   <script defer src="/stats/script.js" data-website-id="${UMAMI_WEBSITE_ID}"></script>
 </head>
@@ -546,7 +666,29 @@
         <p class="eyebrow">Servidor de Minecraft</p>
       </div>
       <h1>Cerro Placeres</h1>
-      <p class="lead">Explora, construye y sobrevive en una comunidad abierta para <strong>Java</strong> y <strong>Bedrock</strong>.</p>
+      <p class="lead">Explora, construye y sobrevive. <strong>Elige tu versión y entra.</strong></p>
+      <div class="hero-actions">
+        <a class="hero-action java" href="#java" aria-label="Ir a la conexión de Java">
+          <span class="hero-action-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="12" rx="2"/>
+              <path d="M8 20h8M12 16v4"/>
+            </svg>
+          </span>
+          <span class="hero-action-text"><strong>Jugar en Java</strong><small>PC · cuenta premium</small></span>
+          <span class="hero-action-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="hero-action bedrock" href="#bedrock" aria-label="Ir a la conexión de Bedrock">
+          <span class="hero-action-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="7" y="2" width="10" height="20" rx="2"/>
+              <path d="M11 18h2"/>
+            </svg>
+          </span>
+          <span class="hero-action-text"><strong>Jugar en Bedrock</strong><small>Móvil · consola</small></span>
+          <span class="hero-action-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
       <div class="pills">
         <span class="pill green">Comunidad abierta</span>
         <span class="pill orange">Java + Bedrock</span>
@@ -575,45 +717,79 @@
           </svg>
         </span>
         <span class="quick-text">
-          <strong>Características</strong>
-          <small>Lo que no es vanilla</small>
+          <strong>Características especiales</strong>
+          <small>Todo lo que no es vanilla</small>
         </span>
         <span class="chev" aria-hidden="true">›</span>
       </a>
 
-      <a class="quick-card" href="#java">
+      <a class="quick-card" href="#recetas">
         <span class="quick-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="12" rx="2"/>
-            <path d="M8 20h8M12 16v4"/>
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>
+            <path d="M8 7h8M8 11h5"/>
           </svg>
         </span>
         <span class="quick-text">
-          <strong>Conectar por Java</strong>
-          <small>IP, puerto y copiar</small>
+          <strong>Recetas especiales</strong>
+          <small>Objetos y cómo craftearlos</small>
         </span>
         <span class="chev" aria-hidden="true">›</span>
       </a>
 
-      <a class="quick-card" href="#bedrock">
-        <span class="quick-icon orange" aria-hidden="true">
+      <a class="quick-card" href="#porque">
+        <span class="quick-icon green" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="7" y="2" width="10" height="20" rx="2"/>
-            <path d="M11 18h2"/>
+            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8Z"/>
           </svg>
         </span>
         <span class="quick-text">
-          <strong>Conectar por Bedrock</strong>
-          <small>Abrir en Minecraft</small>
+          <strong>¿Por qué jugar?</strong>
+          <small>Porque es divertido</small>
         </span>
         <span class="chev" aria-hidden="true">›</span>
       </a>
     </nav>
 
     <main>
+      <section id="java" class="section">
+        <div class="section-head">
+          <span class="kicker purple">01 · Conexión</span>
+          <h2>Conectar por Java</h2>
+          <p>Para Minecraft Java Edition con cuenta premium.</p>
+        </div>
+        <div class="card">
+          <div class="address">
+            <div><small>IP</small><code>vecthor.cl</code></div>
+            <div><small>Puerto</small><code>20007</code></div>
+          </div>
+          <button class="btn primary" type="button" data-copy="vecthor.cl:20007" aria-label="Copiar IP y puerto de Java">Copiar dirección</button>
+          <p class="note">Minecraft → Multijugador → Añadir servidor. En Java no hay un enlace universal para entrar directo; por eso el botón copia la dirección.</p>
+        </div>
+      </section>
+
+      <section id="bedrock" class="section">
+        <div class="section-head">
+          <span class="kicker orange">02 · Conexión</span>
+          <h2>Conectar por Bedrock</h2>
+          <p>Desde móvil, consola o Windows. No necesitas cuenta Java.</p>
+        </div>
+        <div class="card">
+          <div class="address">
+            <div><small>Servidor</small><code>mc.vecthor.cl</code></div>
+            <div><small>Puerto</small><code>20008</code></div>
+          </div>
+          <button class="btn primary" type="button" data-copy="mc.vecthor.cl:20008" aria-label="Copiar dirección de Bedrock">Copiar dirección</button>
+          <a class="btn green" href="minecraft://connect?serverUrl=mc.vecthor.cl&amp;serverPort=20008">Jugar ahora</a>
+          <a class="btn ghost" href="minecraft://?addExternalServer=Cerro%20Placeres%7Cmc.vecthor.cl%3A20008">Añadir a la lista</a>
+          <p class="note">El botón <strong>Jugar ahora</strong> abre Minecraft y conecta por NetherNet. Si no funciona, añade el servidor a la lista. Requiere Minecraft 26.60 o posterior.</p>
+        </div>
+      </section>
+
       <section id="reglas" class="section">
         <div class="section-head">
-          <span class="kicker green">01 · Comunidad</span>
+          <span class="kicker green">03 · Comunidad</span>
           <h2>Reglas</h2>
           <p>Lo justo para que todos disfruten. Al entrar, las aceptas.</p>
         </div>
@@ -637,57 +813,123 @@
 
       <section id="caracteristicas" class="section">
         <div class="section-head">
-          <span class="kicker orange">02 · Novedades</span>
-          <h2>Características</h2>
-          <p>Lo que encontrarás fuera de lo vanilla, en una lista rápida.</p>
+          <span class="kicker orange">04 · Novedades</span>
+          <h2>Características especiales</h2>
+          <p>Todo lo que hace distinto al servidor, en una lectura rápida.</p>
         </div>
         <div class="card">
-          <ul class="features">
-            <li><span class="dot"></span><div><strong>Mundos a medida</strong><small>Overworld con TerraformGenerator; Nether con Tartarus; End con ReimagEND.</small></div></li>
-            <li><span class="dot green"></span><div><strong>Estructuras nuevas</strong><small>BetterStructures y Dungeons and Taverns.</small></div></li>
-            <li><span class="dot orange"></span><div><strong>Mobs con nivel e IA</strong><small>LevelledMobs y SentientMobs.</small></div></li>
-            <li><span class="dot"></span><div><strong>Vidas y reanimación</strong><small>LimitedLives y UltraRevive.</small></div></li>
-            <li><span class="dot green"></span><div><strong>Tumbas y loot por jugador</strong><small>AxGraves y Lootin.</small></div></li>
-            <li><span class="dot orange"></span><div><strong>Cocina, cerveza y cultivos</strong><small>CookMe, BreweryX y CropReplant.</small></div></li>
-            <li><span class="dot"></span><div><strong>Senderos naturales</strong><small>Trodden: la hierba se vuelve camino al caminar.</small></div></li>
-            <li><span class="dot green"></span><div><strong>Desastres naturales</strong><small>Deadly Disasters.</small></div></li>
-            <li><span class="dot orange"></span><div><strong>Java y Bedrock</strong><small>Geyser, Floodgate y ViaVersion.</small></div></li>
-            <li><span class="dot"></span><div><strong>Dormir</strong><small>La noche pasa con el 51% de jugadores.</small></div></li>
+          <div class="feature-group">
+            <h3>Mundos y exploración</h3>
+            <ul class="features">
+              <li><span class="dot"></span><div><strong>Mundos a medida</strong><small>Overworld con TerraformGenerator; Nether con Tartarus; End con ReimagEND.</small></div></li>
+              <li><span class="dot green"></span><div><strong>Estructuras nuevas</strong><small>BetterStructures y sus mazmorras repartidas por el mundo.</small></div></li>
+              <li><span class="dot orange"></span><div><strong>Mobs con nivel e IA</strong><small>LevelledMobs y SentientMobs: más desafío y comportamientos propios.</small></div></li>
+              <li><span class="dot"></span><div><strong>Desastres naturales</strong><small>Deadly Disasters con clima y eventos; los destructivos están desactivados.</small></div></li>
+            </ul>
+          </div>
+
+          <div class="feature-group">
+            <h3>Vida y progresión</h3>
+            <ul class="features">
+              <li><span class="dot green"></span><div><strong>Vidas y reanimación</strong><small>LimitedLives y UltraRevive: pierde vidas, pero vuelve a la acción.</small></div></li>
+              <li><span class="dot orange"></span><div><strong>Tumbas y loot por jugador</strong><small>AxGraves y Lootin: recupera tu tumba y tu propio loot.</small></div></li>
+              <li><span class="dot"></span><div><strong>Más de 300 logros</strong><small>Premium Advancements: 6 tabs de progresión, incluyendo niveles 1 a 10.000.</small></div></li>
+              <li><span class="dot green"></span><div><strong>Dormir</strong><small>La noche pasa con el 51% de los jugadores.</small></div></li>
+            </ul>
+          </div>
+
+          <div class="feature-group">
+            <h3>Oficios y granjas</h3>
+            <ul class="features">
+              <li><span class="dot orange"></span><div><strong>Cocina, cerveza y cultivos</strong><small>CookMe, BreweryX y CropReplant.</small></div></li>
+              <li><span class="dot"></span><div><strong>Senderos naturales</strong><small>Trodden: la hierba se vuelve camino al caminar.</small></div></li>
+            </ul>
+          </div>
+
+          <div class="feature-group">
+            <h3>Calidad de vida y extras</h3>
+            <ul class="features">
+              <li><span class="dot green"></span><div><strong>Ordenar cofres</strong><small>BetterSort: doble clic para ordenar y hotbar que se rellena sola.</small></div></li>
+              <li><span class="dot orange"></span><div><strong>Telekinesis</strong><small>Magnetic: los drops y la XP vuelan directo a tu inventario.</small></div></li>
+              <li><span class="dot"></span><div><strong>Puertas dobles</strong><small>DoubleDoor: las dos hojas se abren y cierran juntas.</small></div></li>
+              <li><span class="dot green"></span><div><strong>Qué es eso?</strong><small>WIT te dice qué bloque o entidad estás mirando.</small></div></li>
+              <li><span class="dot orange"></span><div><strong>Rastreador del huevo</strong><small>Dragon Egg Tracker: brújula especial y buffs por sostener el huevo.</small></div></li>
+              <li><span class="dot"></span><div><strong>Resource pack automático</strong><small>ResourcePackManager mezcla las texturas de UltraRevive y BetterStructures.</small></div></li>
+            </ul>
+          </div>
+
+          <div class="feature-group">
+            <h3>Compatibilidad</h3>
+            <ul class="features">
+              <li><span class="dot green"></span><div><strong>Java y Bedrock</strong><small>Geyser, Floodgate y ViaVersion para entrar desde donde quieras.</small></div></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="recetas" class="section">
+        <div class="section-head">
+          <span class="kicker purple">05 · Objetos nuevos</span>
+          <h2>Recetas especiales</h2>
+          <p>Cómo construir los objetos nuevos, sin adivinar.</p>
+        </div>
+
+        <div class="card recipe">
+          <div class="recipe-head">
+            <div>
+              <h3>Brújula rastreadora</h3>
+              <p>Dragon Egg Tracker: rastrea el huevo de dragón y da buffs a quien lo sostiene.</p>
+            </div>
+            <span class="recipe-badge">Receta</span>
+          </div>
+          <div class="craft-grid" role="img" aria-label="Receta de la brújula rastreadora: aliento de dragón, ojo de ender y aliento de dragón en la primera fila; perla de ender, brújula y perla de ender en la segunda; aliento de dragón, ojo de ender y aliento de dragón en la tercera.">
+            <div class="craft-slot"><span class="craft-slot-icon">🐉</span><small>Aliento</small></div>
+            <div class="craft-slot"><span class="craft-slot-icon">👁️</span><small>Ojo</small></div>
+            <div class="craft-slot"><span class="craft-slot-icon">🐉</span><small>Aliento</small></div>
+            <div class="craft-slot"><span class="craft-slot-icon">🟣</span><small>Perla</small></div>
+            <div class="craft-slot key"><span class="craft-slot-icon">🧭</span><small>Brújula</small></div>
+            <div class="craft-slot"><span class="craft-slot-icon">🟣</span><small>Perla</small></div>
+            <div class="craft-slot"><span class="craft-slot-icon">🐉</span><small>Aliento</small></div>
+            <div class="craft-slot"><span class="craft-slot-icon">👁️</span><small>Ojo</small></div>
+            <div class="craft-slot"><span class="craft-slot-icon">🐉</span><small>Aliento</small></div>
+          </div>
+          <ul class="recipe-ingredients">
+            <li>4× Aliento de dragón</li>
+            <li>4× Ojo de ender</li>
+            <li>4× Perla de ender</li>
+            <li>1× Brújula</li>
           </ul>
+          <p class="note">Al sostener el huevo: <strong>+4 corazones</strong>, Fuerza I y Resistencia al fuego I. La receta está activa en el servidor.</p>
+        </div>
+
+        <div class="card recipe">
+          <div class="recipe-head">
+            <div>
+              <h3>Encantamiento Magnetic</h3>
+              <p>Telekinesis: los drops y la XP vuelan directo a tu inventario.</p>
+            </div>
+            <span class="recipe-badge no">No es receta</span>
+          </div>
+          <p class="note">No se craftea: es un encantamiento y se obtiene encantando equipo o libros. Funciona en herramientas, armas y otros objetos con la mejora.</p>
+        </div>
+
+        <div class="card">
+          <p class="note"><strong>Sin receta:</strong> BetterSort, DoubleDoor, WIT y Premium Advancements no añaden objetos crafteables. Las recetas de BreweryX y CookMe se consultan dentro de sus libros y menús en el servidor.</p>
         </div>
       </section>
 
-      <section id="java" class="section">
+      <section id="porque" class="section">
         <div class="section-head">
-          <span class="kicker purple">03 · Java</span>
-          <h2>Conectar por Java</h2>
-          <p>Para Minecraft Java Edition con cuenta premium.</p>
+          <span class="kicker green">06 · La razón</span>
+          <h2>¿Por qué jugar?</h2>
         </div>
-        <div class="card">
-          <div class="address">
-            <div><small>IP</small><code>vecthor.cl</code></div>
-            <div><small>Puerto</small><code>20007</code></div>
+        <div class="card why-card">
+          <p class="why-quote">Porque es divertido. Y cuantos más seamos, mejor.</p>
+          <p class="why-text">Mundos que no has visto, historias que se escriben entre todos y siempre algo por descubrir. No hay una forma correcta de jugar: hay una comunidad para hacerlo.</p>
+          <div class="why-actions">
+            <a class="btn primary" href="#java">Jugar en Java</a>
+            <a class="btn green" href="#bedrock">Jugar en Bedrock</a>
           </div>
-          <button class="btn primary" type="button" data-copy="vecthor.cl:20007" aria-label="Copiar IP y puerto de Java">Copiar dirección</button>
-          <p class="note">Minecraft → Multijugador → Añadir servidor. En Java no hay un enlace universal para entrar directo; por eso el botón copia la dirección.</p>
-        </div>
-      </section>
-
-      <section id="bedrock" class="section">
-        <div class="section-head">
-          <span class="kicker orange">04 · Bedrock</span>
-          <h2>Conectar por Bedrock</h2>
-          <p>Desde móvil, consola o Windows. No necesitas cuenta Java.</p>
-        </div>
-        <div class="card">
-          <div class="address">
-            <div><small>Servidor</small><code>mc.vecthor.cl</code></div>
-            <div><small>Puerto</small><code>20008</code></div>
-          </div>
-          <button class="btn primary" type="button" data-copy="mc.vecthor.cl:20008" aria-label="Copiar dirección de Bedrock">Copiar dirección</button>
-          <a class="btn green" href="minecraft://connect?serverUrl=mc.vecthor.cl&amp;serverPort=20008">Jugar ahora</a>
-          <a class="btn ghost" href="minecraft://?addExternalServer=Cerro%20Placeres%7Cmc.vecthor.cl%3A20008">Añadir a la lista</a>
-          <p class="note">El botón <strong>Jugar ahora</strong> abre Minecraft y conecta por NetherNet. Si no funciona, añade el servidor a la lista. Requiere Minecraft 26.60 o posterior.</p>
         </div>
       </section>
     </main>
