@@ -624,14 +624,6 @@
     .recipe-head h3 { margin: 0; font-size: 16px; letter-spacing: -0.01em; }
     .recipe-head p { margin: 3px 0 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
     .recipe-badge { flex: none; padding: 5px 8px; border: 1px solid rgba(52, 211, 153, 0.25); border-radius: 999px; background: rgba(52, 211, 153, 0.08); color: var(--green); font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-    .recipe-badge.no { border-color: rgba(251, 146, 60, 0.3); background: rgba(251, 146, 60, 0.08); color: var(--orange); }
-
-    .craft-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 260px; margin: 0 auto 12px; }
-    .craft-slot { display: flex; aspect-ratio: 1; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px; border: 1px solid var(--line); border-radius: 10px; background: rgba(0, 0, 0, 0.22); text-align: center; }
-    .craft-slot.key { border-color: rgba(251, 146, 60, 0.4); background: rgba(251, 146, 60, 0.08); }
-    .craft-slot-icon { font-size: 22px; line-height: 1; }
-    .craft-slot small { color: var(--muted); font-size: 8px; line-height: 1.1; }
-    .craft-slot.key small { color: #fdba74; }
 
     .recipe-ingredients { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; padding: 0; list-style: none; }
     .recipe-ingredients li { padding: 4px 8px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 255, 255, 0.04); color: var(--muted); font-size: 10px; }
@@ -653,6 +645,30 @@
       .hero-action { transition: none; }
     }
 
+    .hero-action.java,
+    .hero-action.bedrock {
+      border-color: rgba(167, 139, 250, 0.35);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.24), rgba(255, 255, 255, 0.035));
+    }
+
+    .hero-action.bedrock .hero-action-icon {
+      border-color: rgba(167, 139, 250, 0.2);
+      background: rgba(167, 139, 250, 0.14);
+      color: var(--purple);
+    }
+
+    .why-actions .btn { min-height: 46px; }
+
+    .recipe-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-bottom: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #d8d8d8;
+    }
+
   </style>
   <script defer src="/stats/script.js" data-website-id="${UMAMI_WEBSITE_ID}"></script>
 </head>
@@ -666,7 +682,7 @@
         <p class="eyebrow">Servidor de Minecraft</p>
       </div>
       <h1>Cerro Placeres</h1>
-      <p class="lead">Explora, construye y sobrevive. <strong>Elige tu versión y entra.</strong></p>
+      <p class="lead">Explora, construye y sobrevive.<br><strong>Elige tu versión y entra.</strong></p>
       <div class="hero-actions">
         <a class="hero-action java" href="#java" aria-label="Ir a la conexión de Java">
           <span class="hero-action-icon" aria-hidden="true">
@@ -882,17 +898,7 @@
             </div>
             <span class="recipe-badge">Receta</span>
           </div>
-          <div class="craft-grid" role="img" aria-label="Receta de la brújula rastreadora: aliento de dragón, ojo de ender y aliento de dragón en la primera fila; perla de ender, brújula y perla de ender en la segunda; aliento de dragón, ojo de ender y aliento de dragón en la tercera.">
-            <div class="craft-slot"><span class="craft-slot-icon">🐉</span><small>Aliento</small></div>
-            <div class="craft-slot"><span class="craft-slot-icon">👁️</span><small>Ojo</small></div>
-            <div class="craft-slot"><span class="craft-slot-icon">🐉</span><small>Aliento</small></div>
-            <div class="craft-slot"><span class="craft-slot-icon">🟣</span><small>Perla</small></div>
-            <div class="craft-slot key"><span class="craft-slot-icon">🧭</span><small>Brújula</small></div>
-            <div class="craft-slot"><span class="craft-slot-icon">🟣</span><small>Perla</small></div>
-            <div class="craft-slot"><span class="craft-slot-icon">🐉</span><small>Aliento</small></div>
-            <div class="craft-slot"><span class="craft-slot-icon">👁️</span><small>Ojo</small></div>
-            <div class="craft-slot"><span class="craft-slot-icon">🐉</span><small>Aliento</small></div>
-          </div>
+          <img class="recipe-image" src="https://cdn.modrinth.com/data/y2sULbuo/images/8182d810ee4675c741b1e02ed37d3d4d4844fca4.jpeg" alt="Receta de la brújula rastreadora: aliento de dragón, ojo de ender y aliento de dragón; perla de ender, brújula y perla de ender; aliento de dragón, ojo de ender y aliento de dragón." width="506" height="211" loading="lazy">
           <ul class="recipe-ingredients">
             <li>4× Aliento de dragón</li>
             <li>4× Ojo de ender</li>
@@ -900,21 +906,6 @@
             <li>1× Brújula</li>
           </ul>
           <p class="note">Al sostener el huevo: <strong>+4 corazones</strong>, Fuerza I y Resistencia al fuego I. La receta está activa en el servidor.</p>
-        </div>
-
-        <div class="card recipe">
-          <div class="recipe-head">
-            <div>
-              <h3>Encantamiento Magnetic</h3>
-              <p>Telekinesis: los drops y la XP vuelan directo a tu inventario.</p>
-            </div>
-            <span class="recipe-badge no">No es receta</span>
-          </div>
-          <p class="note">No se craftea: es un encantamiento y se obtiene encantando equipo o libros. Funciona en herramientas, armas y otros objetos con la mejora.</p>
-        </div>
-
-        <div class="card">
-          <p class="note"><strong>Sin receta:</strong> BetterSort, DoubleDoor, WIT y Premium Advancements no añaden objetos crafteables. Las recetas de BreweryX y CookMe se consultan dentro de sus libros y menús en el servidor.</p>
         </div>
       </section>
 
@@ -928,7 +919,7 @@
           <p class="why-text">Mundos que no has visto, historias que se escriben entre todos y siempre algo por descubrir. No hay una forma correcta de jugar: hay una comunidad para hacerlo.</p>
           <div class="why-actions">
             <a class="btn primary" href="#java">Jugar en Java</a>
-            <a class="btn green" href="#bedrock">Jugar en Bedrock</a>
+            <a class="btn primary" href="#bedrock">Jugar en Bedrock</a>
           </div>
         </div>
       </section>
