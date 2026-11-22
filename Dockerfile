@@ -2,6 +2,7 @@ FROM nginx:alpine-slim
 
 COPY nginx.conf.tmpl /etc/nginx/default.conf.tmpl
 COPY index.html /usr/share/nginx/html/index.html.tmpl
+COPY recipes /usr/share/nginx/html/recipes
 COPY --chmod=755 40-umami.sh /docker-entrypoint.d/40-umami.sh
 
 EXPOSE 80

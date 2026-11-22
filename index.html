@@ -658,6 +658,18 @@
 
     .recipe-link:hover { text-decoration: underline; }
 
+    .backpack-acc { display: grid; gap: 8px; margin-bottom: 12px; }
+    .backpack-acc details { border: 1px solid var(--line); border-radius: 12px; background: rgba(255, 255, 255, 0.03); overflow: hidden; }
+    .backpack-acc summary { display: flex; align-items: center; gap: 10px; padding: 11px 12px; cursor: pointer; list-style: none; }
+    .backpack-acc summary::-webkit-details-marker { display: none; }
+    .backpack-acc summary .acc-title { font-size: 13px; font-weight: 600; }
+    .backpack-acc summary .acc-meta { margin-left: auto; color: var(--muted); font-size: 10px; }
+    .backpack-acc summary .acc-chevron { color: var(--muted); font-size: 11px; transition: transform 0.2s; }
+    .backpack-acc details[open] summary { border-bottom: 1px solid var(--line); }
+    .backpack-acc details[open] summary .acc-chevron { transform: rotate(180deg); }
+    .backpack-acc .acc-body { padding: 12px 12px 2px; }
+    .backpack-acc .recipe-image { margin-bottom: 10px; }
+
     /* Why */
     .why-card { padding: 20px 18px; border-color: rgba(167, 139, 250, 0.28); background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(52, 211, 153, 0.06)); }
     .why-quote { margin: 0 0 8px; font-size: 22px; font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; background: linear-gradient(100deg, #fff, var(--purple) 60%, var(--green)); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
@@ -945,6 +957,71 @@
         <div class="card recipe">
           <div class="recipe-head">
             <div>
+              <h3>Mochilas</h3>
+              <p>Almacenamiento portátil en tres niveles. Abre una receta a la vez.</p>
+            </div>
+            <span class="recipe-badge">Receta</span>
+          </div>
+
+          <div class="backpack-acc">
+            <details open name="mochilas">
+              <summary>
+                <span class="acc-title">Mochila básica</span>
+                <span class="acc-meta">9 espacios</span>
+                <span class="acc-chevron" aria-hidden="true">▾</span>
+              </summary>
+              <div class="acc-body">
+                <img class="recipe-image" src="recipes/mochila-basica.png" alt="Receta de la mochila básica: cuero, lingote de hierro y cuero; lingote de hierro, cofre y lingote de hierro; bloque de hierro, lingote de hierro y bloque de hierro." width="528" height="216" loading="lazy">
+                <ul class="recipe-ingredients">
+                  <li>2× Cuero</li>
+                  <li>4× Lingote de hierro</li>
+                  <li>2× Bloque de hierro</li>
+                  <li>1× Cofre</li>
+                </ul>
+              </div>
+            </details>
+
+            <details name="mochilas">
+              <summary>
+                <span class="acc-title">Mochila dorada</span>
+                <span class="acc-meta">27 espacios</span>
+                <span class="acc-chevron" aria-hidden="true">▾</span>
+              </summary>
+              <div class="acc-body">
+                <img class="recipe-image" src="recipes/mochila-dorada.png" alt="Receta de la mochila dorada: cuero, lingote de oro y cuero; lingote de oro, cofre y lingote de oro; bloque de oro, lingote de oro y bloque de oro." width="528" height="216" loading="lazy">
+                <ul class="recipe-ingredients">
+                  <li>2× Cuero</li>
+                  <li>4× Lingote de oro</li>
+                  <li>2× Bloque de oro</li>
+                  <li>1× Cofre</li>
+                </ul>
+              </div>
+            </details>
+
+            <details name="mochilas">
+              <summary>
+                <span class="acc-title">Mochila de diamante</span>
+                <span class="acc-meta">54 espacios</span>
+                <span class="acc-chevron" aria-hidden="true">▾</span>
+              </summary>
+              <div class="acc-body">
+                <img class="recipe-image" src="recipes/mochila-diamante.png" alt="Receta de la mochila de diamante: cuero, diamante y cuero; diamante, cofre y diamante; bloque de diamante, diamante y bloque de diamante." width="528" height="216" loading="lazy">
+                <ul class="recipe-ingredients">
+                  <li>2× Cuero</li>
+                  <li>4× Diamante</li>
+                  <li>2× Bloque de diamante</li>
+                  <li>1× Cofre</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <p class="note">Máximo 2 mochilas por jugador. No admiten shulkers dentro y caen al morir; AxGraves las recoge. En el juego puedes ver las recetas con <strong>/backpack recipes</strong>.</p>
+        </div>
+
+        <div class="card recipe">
+          <div class="recipe-head">
+            <div>
               <h3>BreweryX: cerveza y bebidas</h3>
               <p>Caldero, cocción, destilado y barril. No es una receta de crafteo, es un proceso.</p>
             </div>
@@ -1014,6 +1091,16 @@
 
     document.querySelectorAll('[data-copy]').forEach((button) => {
       button.addEventListener('click', () => copyText(button.dataset.copy));
+    });
+
+    const backpackAccordion = document.querySelectorAll('.backpack-acc details');
+    backpackAccordion.forEach((detail) => {
+      detail.addEventListener('toggle', () => {
+        if (!detail.open) return;
+        backpackAccordion.forEach((other) => {
+          if (other !== detail) other.open = false;
+        });
+      });
     });
   </script>
 </body>
