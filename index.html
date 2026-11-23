@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0d0618">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-valpito.svg">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <meta name="description" content="Valpo: servidor de Minecraft Java y Bedrock. Reglas, características especiales, recetas y conexión.">
   <title>Valpo · Minecraft</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,25 +88,12 @@
     }
 
     .logo {
-      display: grid;
-      grid-template-columns: repeat(2, 13px);
-      gap: 4px;
-      transform: rotate(-8deg);
+      display: block;
+      width: 48px;
+      height: 48px;
       filter: drop-shadow(0 8px 16px rgba(124, 58, 237, 0.35));
       animation: float 6s ease-in-out infinite;
     }
-
-    .logo span {
-      display: block;
-      width: 13px;
-      height: 13px;
-      border-radius: 4px;
-      background: linear-gradient(135deg, var(--purple), var(--purple-2));
-    }
-
-    .logo span:nth-child(2) { background: linear-gradient(135deg, var(--green), var(--green-2)); }
-    .logo span:nth-child(3) { background: linear-gradient(135deg, var(--orange), var(--orange-2)); }
-    .logo span:nth-child(4) { background: linear-gradient(135deg, #c4b5fd, var(--purple)); }
 
     .eyebrow {
       margin: 0;
@@ -739,9 +729,7 @@
   <div class="wrap">
     <header class="hero">
       <div class="brand-row">
-        <div class="logo" aria-hidden="true">
-          <span></span><span></span><span></span><span></span>
-        </div>
+        <img class="logo" src="assets/logo-valpito.svg" alt="" width="48" height="48">
         <p class="eyebrow">Servidor de Minecraft para</p>
       </div>
       <h1>Valpito</h1>
