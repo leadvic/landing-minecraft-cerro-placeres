@@ -617,7 +617,26 @@
 
     .connect-block h3 { margin: 0 0 3px; font-size: 17px; letter-spacing: -0.01em; }
     .connect-block > p { margin: 0 0 10px; color: var(--muted); font-size: 12.5px; line-height: 1.45; }
-    #java, #bedrock { scroll-margin-top: 24px; }
+    #java, #bedrock, #mapa { scroll-margin-top: 24px; }
+
+    .map-embed {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      min-height: 300px;
+      margin-bottom: 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #0d0618;
+    }
+
+    .map-embed iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
 
     .feature-group h3 {
       margin: 0 0 11px;
@@ -845,6 +864,18 @@
             <a class="btn green" href="minecraft://connect?serverUrl=mc.vecthor.cl&amp;serverPort=20008">Jugar ahora</a>
             <a class="btn ghost" href="minecraft://?addExternalServer=mc.vecthor.cl%3A20008">Añadir a la lista</a>
             <p class="note">El botón <strong>Jugar ahora</strong> abre Minecraft y conecta por NetherNet. Si no funciona, añade el servidor a la lista. Requiere Minecraft 26.60 o posterior.</p>
+          </div>
+        </div>
+
+        <div id="mapa" class="connect-block">
+          <h3>Mapa en vivo</h3>
+          <p>BlueMap: recorre el mundo en 3D y mira dónde está cada jugador.</p>
+          <div class="card">
+            <div class="map-embed">
+              <iframe src="https://map.valpo.mc.vecthor.cl/" title="Mapa en vivo de Valpo" loading="lazy" allowfullscreen></iframe>
+            </div>
+            <a class="btn primary" href="https://map.valpo.mc.vecthor.cl/" target="_blank" rel="noopener">Abrir mapa completo</a>
+            <p class="note">Los jugadores solo aparecen cuando están a cielo abierto: dentro de casas o bajo tierra no se ven. Si el mapa no carga, ábrelo en una pestaña nueva.</p>
           </div>
         </div>
       </section>
