@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0d0618">
   <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" type="image/svg+xml" href="assets/logo-valpito.svg">
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="assets/icono-valpito.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icono-valpito-32.png">
+  <link rel="apple-touch-icon" href="assets/icono-valpito-256.png">
   <meta name="description" content="Valpo: servidor de Minecraft Java y Bedrock. Reglas, características especiales, recetas y conexión.">
   <title>Valpo · Minecraft</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,7 +93,6 @@
       width: 48px;
       height: 48px;
       filter: drop-shadow(0 8px 16px rgba(124, 58, 237, 0.35));
-      animation: float 6s ease-in-out infinite;
     }
 
     .eyebrow {
@@ -508,11 +508,6 @@
       transform: translate(-50%, 0);
     }
 
-    @keyframes float {
-      0%, 100% { transform: rotate(-8deg) translateY(0); }
-      50% { transform: rotate(-4deg) translateY(-3px); }
-    }
-
     @media (max-width: 360px) {
       .address { grid-template-columns: 1fr; }
       .quick-text small { white-space: normal; }
@@ -520,7 +515,6 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .logo { animation: none; }
       .btn, .quick-card, .chev, .toast { transition: none; }
     }
     /* Hero CTA */
@@ -729,7 +723,7 @@
   <div class="wrap">
     <header class="hero">
       <div class="brand-row">
-        <img class="logo" src="assets/logo-valpito.svg" alt="" width="48" height="48">
+        <img class="logo" src="assets/icono-valpito.svg" alt="" width="48" height="48">
         <p class="eyebrow">Servidor de Minecraft para</p>
       </div>
       <h1>Valpito</h1>
