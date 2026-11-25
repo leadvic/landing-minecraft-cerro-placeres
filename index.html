@@ -160,6 +160,9 @@
       box-shadow: 0 0 10px currentColor;
     }
 
+    .pill[hidden] { display: none; }
+    .connect-block h3 .pill { margin-left: 6px; vertical-align: 2px; }
+
     .pill.green {
       color: var(--green);
       border-color: rgba(52, 211, 153, 0.25);
@@ -850,7 +853,7 @@
         </div>
 
         <div id="mapa" class="connect-block">
-          <h3>Mapa en vivo</h3>
+          <h3>Mapa en vivo <span class="pill green live-players" id="live-players" hidden><span id="live-players-text">—</span></span></h3>
           <p>BlueMap: recorre el mundo en 3D y mira dónde está cada jugador.</p>
           <div class="card">
             <div class="map-embed">
@@ -1131,6 +1134,37 @@
           if (other !== detail) other.open = false;
         });
       });
+    });
+
+    const livePlayers = document.getElementById('live-players');
+    const livePlayersText = document.getElementById('live-players-text');
+
+    async function updateLivePlayers() {
+      if (!livePlayers) return;
+      try {
+        const response = await fetch('https://api.mcstatus.io/v2/status/java/vecthor.cl:20007', { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const status = await response.json();
+        if (!status.online) {
+          livePlayers.classList.remove('green');
+          livePlayers.classList.add('orange');
+          livePlayersText.textContent = 'sin conexión';
+        } else {
+          const online = status.players.online;
+          livePlayers.classList.add('green');
+          livePlayers.classList.remove('orange');
+          livePlayersText.textContent = `${online} ${online === 1 ? 'jugador' : 'jugadores'} en línea`;
+        }
+        livePlayers.hidden = false;
+      } catch (error) {
+        livePlayers.hidden = true;
+      }
+    }
+
+    updateLivePlayers();
+    setInterval(updateLivePlayers, 60000);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) updateLivePlayers();
     });
   </script>
 </body>
